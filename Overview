@@ -1,0 +1,30 @@
+Before, we had to have one physical server each for every app
+new app - new server 
+
+Until virtual machines solved the problem
+Now multiple virtual machines - one physical server
+But there were still gaps… cases of an app/website working correctly on one machine and not running on another(issues like missing versions or various compatibility issues)
+Also, each virtual machine requires its own OS meaning every app has its own OS i.e allocated resources like CPU, storage, RAM etc.
+*VMs are mostly used per app/service but one VM can run multiple apps
+
+Then came containers which improved this…
+Instead of one VM per app which is heavy because each VM require full OS, we can now run many lightweight containers on one OS
+Docker runs directly on Linux kernel and does not require VM but on Windows or MacOS, docker needs a linux environment so it runs in a VM or WSL2(Docker Desktop) because containers depend on linux kernel to run. With Docker, apps runs the same everywhere because environment is packaged
+
+WSL2 is a lightweight virtualization layer that runs Linux kernel inside windows(not VM but behaves like VM)
+Note** VMs are not same as WSL2(windows provide it)
+
+Docker creates a form of isolation that even though multiple apps are running on the same OS, each container is separated and cannot see what is going on outside of its environment or inside other containers. Docker is written in Go language
+
+Docker is a tool that allows us to create, manage and scale containers.
+
+*Containers do not carry the OS, it depends on the host kernel. 
+
+A developer defines all the app dependencies in a dockerfile which is then used to create/build a docker image. The image is a template used to create the docker container. Doing this ensures that the app runs consistently in any environment that supports same container runtime and kernel type eg. a linux container built image will run on linux server directly, on windows via linux environment like WSL2 & MacOS via virtualization layer(linux VM) because they are all providing linux kernel layer underneath
+
+Runtime allows to start & stop containers and are subdivided:
+runc - directly create, run,start and stop containers
+Container d - pulls &n store images, calls runc  to start containers
+
+Docker daemon is the background engine that runs docker
+
