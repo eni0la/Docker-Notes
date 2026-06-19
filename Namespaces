@@ -1,0 +1,9 @@
+NAMESPACES
+Docker uses a technology named namespaces to provide the isolated workspace called container.
+When you run a container, docker creates a set of namespaces for that container
+
+PID namespace for process isolation
+net namespace for managing network interface
+mnt namespace to manage filesystem mount points
+
+Docker engine relies on another technology called control groups(cgroups) which limits an application to a pacific set of resources
