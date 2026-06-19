@@ -1,0 +1,52 @@
+#Project: Simple web server using Express to listen at port 8080REST - Representational State Transfer (a way for two computers to communicate)
+Get - read
+Post - create
+Patch - update
+Delete - destroy
+
+Stateless means both client and endpoint/server does not store any information about each other and every request/ response is independent of other communication
+Framework for building restful api in node is ExpressJs
+Before, JS was used for buttons,forms and web page interactions until NodeJs
+NodeJs is allows to create servers, handle API faster, read/write files and connect to DBs
+ExpressJshelps to build API faster, handle route easier, manage res/req
+
+Project: Simple web server using Express to listen at port 8080
+const express = require("express"); (import express)
+const app = express(); (server application is created)
+app.get("/", (req, res) => {
+res.send("Hello, World!");
+}); (if someone visits homepage (/), respond Hello World)
+
+
+app.listen(8080, () => {
+console.log("Server is running on http://localhost:8080");
+}); )(start server and make it listen on port 8080) console.log is a callback function that runs when server starts
+Use postman to test get, post, delete
+
+Step 2 - Then run node . in terminal to start server
+
+Callback is a function that is passed into another function to be executed later 
+The callback only runs after Express successfully starts listening
+
+JSON- Javascript  Object Notation is used to store and exchange structured data between servers, apps and APIs
+
+Middleware is a function that runs before your request reaches the final route. It reads incoming JSON and converts it for server to use. It is used for security checks, authentication, login reqs
+
+Step 3 - Create Dockerfile
+FROM node:20 (use node environment)
+WORKDIR/app (set folder inside container)
+COPY package.json (copy dependencies file)
+RUN npm install (install packages)
+COPY .. (copy my code)
+EXPOSE 8080 (open port 8080)
+CMD (start my app)
+Step 4 - Build Image
+docker build -t student-api .
+
+Step 5 - Run Container
+docker run -p 8080:8080 student-api (host port:container port)
+
+docker ps
+docker logs
+docker stop containerID
+
