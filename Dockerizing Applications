@@ -1,0 +1,109 @@
+#Static Website
+DOCKERFILE
+
+#declare baseimage
+FROM nginx:alpine
+
+#set a work directory path\
+WORKDIR use/share/nginx/html
+
+#copy files source:destination(current:working directory)
+COPY . .
+
+#expose nginx port
+EXPOSE 8080
+
+#command that starts app when container runs
+CMD ["nginx", "-g", "daemon off;"]
+
+#Nodejs App
+#create a folder in terminal -mkdir
+#cd folder and create all necessary files - index.js, package.json, Dockerfile
+#open vscode editor - code .
+#paste code
+#install node.js
+
+DOCKERFILE
+#declare baseimage
+FROM node:14-alpine
+
+#create /app inside container
+WORKDIR /app
+
+#copy files source:destination(current:working directory)
+COPY . /app
+
+#install any needed packages
+RUN npm install
+
+#expose nginx port
+EXPOSE 3000
+
+#define environment variable
+ENV name project5
+
+#command that starts app.js when container runs
+CMD ["npm", "start"]
+
+#run node . in terminal to start server
+
+#Python App
+#create main.py and Dockerfile
+#import python packages - requirements.text
+
+DOCKERFILE
+#declare baseimage
+FROM python:3.12
+
+#create /app inside container
+WORKDIR /app
+
+#copy dependencies
+COPY requirements.txt .
+
+#copy everything inside container
+COPY . .
+
+#install packages
+RUN pip install -r requirements.txt
+
+#app listen on port
+EXPOSE 5000
+
+#command that starts app.js when container runs
+CMD ["python", "app.py"]
+
+#run python . in terminal to start app
+
+**fastAPI is a framework that helps build RESTAPIs
+
+#SPRING BOOT APP (JAVA)
+#specify packaging type as jar
+#create files including Dockerfile
+
+DOCKERFILE
+#declare baseimage
+FROM openjdk:21
+
+#create /app inside container
+WORKDIR /app
+
+#copy dependencies
+COPY target/app.jar app.jar
+
+#app listen on port
+EXPOSE 5000
+
+#command that starts app.js when container runs
+CMD ["java", "-jar", "student-app.jar"] 
+
+For production, use
+ENTRYPOINT ["java", "-jar", "app.jar"] because every app should start same way, CMD can easily be replaced
+
+FROM       = which Java environment?
+WORKDIR    = where should I work?
+COPY       = bring application files in
+LABEL      = image information
+EXPOSE     = application port
+CMD        = default start command
+ENTRYPOINT = fixed start command
