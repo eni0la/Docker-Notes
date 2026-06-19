@@ -1,0 +1,19 @@
+Docker Volumes
+A way to store data outside a container so it does NOT disappear when the container stops or is deleted. A folder in a physical host filesystem is mounted into the virtual file system of docker
+
+Types
+docker run
+-v /home/mount/data:/var/lib/mysql/data
+    Host directory       : Container directory/path
+
+docker run
+-v /var/lib/mysql/data
+This does not specify host directory, docker does -anonymous volumes
+
+docker run 
+-v name: /var/lib/mysql/data
+It specifies the name of the folder on the host file system - named volumes 
+*you can mount the same volume name to two different folders.
+
+LAYERS
+Each Docker instruction is a layer of the image
