@@ -1,0 +1,62 @@
+CLIENT-SERVER ARCHITECTURE (What happens when you run a container)
+
+Docker command line sends request to daemon
+Daemons passes req to containerd
+Containerd prepares and manages the container then calls runc
+runc creates container then it runs
+
+*Docker daemon is the brain that receives req & interpret & forward to containerd(tells who what to do, delegate task)
+Containerd prepares container environment, manage images and tells runc to start container
+runc is the container creator (talks to linux kernel features like namespaces, cgroups to create an isolated process and start container)
+
+*Docker does not create container alone, they are created by linux kernel feature triggered by runc
+
+Dockerfile is the set of instructions/blueprint of a file that contains all instr. for an app
+
+To containerize an app, write a dockerfile, which is used to build an image then the image is used to create and run containers.
+
+Example:
+If i run; docker run nginx on my CLI
+Docker daemon receives my req and checks if image is available locally, if not;
+It tells containerd to pull image from registry(docker hub)
+Containerd connects to docker hub and pulls image from it then save it locally, prepares environment and tells runc to start container
+
+docker run -it ubuntu (creates and starts a new Ubuntu container with an interactive terminal)
+docker ps / docker container ls (to see all running container)
+docker images (to check which images are running)
+docker stop containerID (to stop container)
+docker start containerID (to start container)
+docker rm containerID (to remove a container that has stopped running)
+docker inspect containerID (info about a container image)
+docker logs containerID (check logs of a container)
+docker container prune -f (deletes all stopped containers)
+docker container -exec -it containerID bash (opens a bash shell inside an already running container)
+To run an nginx web server on my computer at port 8080; docker run -d -p 8080:80 nginx
+-t (tag) is used to give docker image a name
+
+When the content of a container is edited and you want to save current state of container into new image is called docker commit
+docker commit -m “added new file” containerID names_ubuntu (-m means note/message to read “added new file”, names_ubuntu is the new image name 
+Hashes are unique names for files
+
+Docker Stages
+
+Write Dockerfile
+Build image
+Run Container
+Access Application
+
+FROM baseimage
+COPY file location 
+Copy . . (copies everything)
+Docker build -t imagetag/name .
+Docker run -p 8080:8080 imagename
+
+
+docker scout looks inside your image and generates a detailed report of all packages inside image 
+
+Multi-containarization means separating frontend, backend and database in different containers
+Docker compose tells all your containers how to work together
+
+Volume is a folder on the computer that docker can access to save any data from container and to share the data with other containers
+
+To help developers reduce build time for complex applications, docker build cloud was created
